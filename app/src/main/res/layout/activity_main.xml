@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#111827">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Emoji Lock Lab"
+            android:textColor="#F9FAFB"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/subtitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Guess the 4-emoji lock in 8 tries"
+            android:textColor="#D1D5DB"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/guessText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Current: _ _ _ _"
+            android:textColor="#FBBF24"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <GridLayout
+            android:id="@+id/emojiGrid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:columnCount="3"
+            android:rowCount="2">
+
+            <Button android:id="@+id/emoji1" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:text="😀" android:textSize="28sp" />
+            <Button android:id="@+id/emoji2" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:text="😎" android:textSize="28sp" />
+            <Button android:id="@+id/emoji3" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:text="🤖" android:textSize="28sp" />
+            <Button android:id="@+id/emoji4" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:text="🐱" android:textSize="28sp" />
+            <Button android:id="@+id/emoji5" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:text="🔥" android:textSize="28sp" />
+            <Button android:id="@+id/emoji6" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:text="🌙" android:textSize="28sp" />
+        </GridLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/clearBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Clear" />
+
+            <Button
+                android:id="@+id/submitBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Submit" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/statusText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text=""
+            android:textColor="#A7F3D0"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/historyTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="History"
+            android:textColor="#E5E7EB"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/historyText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="No guesses yet"
+            android:textColor="#E5E7EB"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/newGameBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="New Puzzle" />
+
+    </LinearLayout>
+
+</ScrollView>
