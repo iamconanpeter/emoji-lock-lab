@@ -9,4 +9,4 @@
 - [x] Run tests/build locally
 - [x] Initialize git with clean history
 - [x] Create and push GitHub repo
-- [ ] Update research status + pipeline files
+- [x] Update research status + pipeline files
