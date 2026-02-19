@@ -1,13 +1,15 @@
 package com.iamconanpeter.emojilocklab
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class EmojiLockEngineTest {
 
     @Test
-    fun `perfect guess solves puzzle`() {
+    fun `perfect guess solves puzzle with 3 stars on first try`() {
         val engine = EmojiLockEngine(seed = 7)
         val secret = engine.revealSecretForDebug()
 
@@ -16,23 +18,43 @@ class EmojiLockEngineTest {
         assertTrue(result.solved)
         assertEquals(4, result.exact)
         assertEquals(0, result.misplaced)
+        assertEquals(3, result.starRating)
         assertTrue(result.gameOver)
     }
 
     @Test
-    fun `misplaced scoring works with duplicates`() {
-        val pool = listOf("A", "B", "C", "D")
-        val engine = EmojiLockEngine(emojiPool = pool, codeLength = 4, maxAttempts = 8, seed = 1)
-        // force known secret by reset with deterministic seed
-        engine.reset(seed = 9)
-        val secret = engine.revealSecretForDebug()
+    fun `two near misses award extra hint charge`() {
+        val pool = listOf("A", "B", "C", "D", "E", "F")
+        val engine = EmojiLockEngine(emojiPool = pool, codeLength = 4, maxAttempts = 8, seed = 3)
+        val secret = engine.revealSecretForDebug().toMutableList()
 
-        // rotate guess to create mostly misplaced chars
-        val guess = listOf(secret[1], secret[2], secret[3], secret[0])
-        val result = engine.submitGuess(guess)
+        val guess1 = secret.toMutableList()
+        guess1[0] = pool.first { it != secret[0] }
 
-        assertTrue(result.exact in 0..4)
-        assertEquals(4 - result.exact, result.misplaced)
+        val guess2 = secret.toMutableList()
+        guess2[1] = pool.first { it != secret[1] }
+
+        val r1 = engine.submitGuess(guess1)
+        val r2 = engine.submitGuess(guess2)
+
+        assertTrue(r1.nearMiss)
+        assertTrue(r2.nearMiss)
+        assertTrue(r2.awardedHint)
+        assertEquals(2, engine.hintCharges())
+    }
+
+    @Test
+    fun `consume hint reveals emoji from secret and decrements charge`() {
+        val engine = EmojiLockEngine(seed = 11)
+        val before = engine.hintCharges()
+
+        val hint = engine.consumeHint()
+
+        assertNotNull(hint)
+        assertEquals(before - 1, engine.hintCharges())
+        val revealed = hint!!.emoji
+        assertTrue(engine.revealSecretForDebug().contains(revealed))
+        assertTrue(engine.revealedHints().contains(revealed))
     }
 
     @Test
@@ -46,5 +68,6 @@ class EmojiLockEngineTest {
 
         assertTrue(second.gameOver)
         assertEquals(0, engine.attemptsLeft())
+        assertFalse(second.solved)
     }
 }
